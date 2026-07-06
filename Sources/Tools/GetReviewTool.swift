@@ -57,8 +57,8 @@ enum GetReviewTool {
             reviewDict["territory"] = territory.rawValue
         }
 
-        // Check for included response
-        if let included = response.included, let devResponse = included.first {
+        // Check for included response (only developer responses; territories are ignored)
+        if let devResponse = response.included?.compactMap(\.customerReviewResponse).first {
             var respDict: [String: Any] = [
                 "responseId": devResponse.id,
             ]

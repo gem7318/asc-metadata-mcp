@@ -103,7 +103,7 @@ enum ListReviewsTool {
         )
 
         let formatter = ISO8601DateFormatter()
-        let includedResponses = response.included ?? []
+        let includedResponses = (response.included ?? []).compactMap(\.customerReviewResponse)
 
         var reviews: [[String: Any]] = []
         for review in response.data {

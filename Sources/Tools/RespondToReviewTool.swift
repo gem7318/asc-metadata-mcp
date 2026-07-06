@@ -81,8 +81,8 @@ enum RespondToReviewTool {
             reviewContext["territory"] = territory.rawValue
         }
 
-        // Check if there's already a response
-        if let included = reviewResponse.included, let existing = included.first {
+        // Check if there's already a response (ignoring any included territories)
+        if let existing = reviewResponse.included?.compactMap(\.customerReviewResponse).first {
             var existingDict: [String: Any] = [
                 "responseId": existing.id,
             ]
