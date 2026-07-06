@@ -21,7 +21,7 @@ enum ListLocalesTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         // Prefer the editable AppInfo so locales reflect the prepared version's set when one
@@ -30,7 +30,7 @@ enum ListLocalesTool {
             Resources.v1.apps.id(appId).appInfos.get()
         )
         guard let appInfo = AppInfoSelector.findPreferredOrFirst(in: appInfosResponse.data) else {
-            return .init(content: [.text("Error: No app info found for app \(appId)")], isError: true)
+            return .init(content: [.text(text: "Error: No app info found for app \(appId)", annotations: nil, _meta: nil)], isError: true)
         }
 
         let infoLocsResponse = try await client.send(
@@ -51,6 +51,6 @@ enum ListLocalesTool {
         ]
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-        return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+        return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

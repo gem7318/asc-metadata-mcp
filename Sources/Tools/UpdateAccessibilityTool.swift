@@ -95,7 +95,7 @@ enum UpdateAccessibilityTool {
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
             return .init(
-                content: [.text("Error: appId is required")], isError: true)
+                content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let declarationId = arguments?["declarationId"]?.stringValue
         let deviceFamilyStr = arguments?["deviceFamily"]?.stringValue
@@ -156,7 +156,7 @@ enum UpdateAccessibilityTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Update existing declaration
@@ -212,7 +212,7 @@ enum UpdateAccessibilityTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: At least one accessibility feature must be provided for update"
+                            text: "Error: At least one accessibility feature must be provided for update", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -230,7 +230,7 @@ enum UpdateAccessibilityTool {
                     options: [.prettyPrinted, .sortedKeys])
                 return .init(
                     content: [
-                        .text(String(data: json, encoding: .utf8) ?? "{}")
+                        .text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)
                     ])
             }
 
@@ -255,7 +255,7 @@ enum UpdateAccessibilityTool {
                 withJSONObject: resultDict,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Create new declaration
@@ -263,7 +263,7 @@ enum UpdateAccessibilityTool {
             return .init(
                 content: [
                     .text(
-                        "Error: deviceFamily is required when creating a new declaration (or provide declarationId to update)"
+                        text: "Error: deviceFamily is required when creating a new declaration (or provide declarationId to update)", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -273,7 +273,7 @@ enum UpdateAccessibilityTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid deviceFamily '\(deviceFamilyStr)'. Valid: IPHONE, IPAD, APPLE_TV, APPLE_WATCH, MAC, VISION"
+                        text: "Error: Invalid deviceFamily '\(deviceFamilyStr)'. Valid: IPHONE, IPAD, APPLE_TV, APPLE_WATCH, MAC, VISION", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -333,7 +333,7 @@ enum UpdateAccessibilityTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         let request = AccessibilityDeclarationCreateRequest(
@@ -358,6 +358,6 @@ enum UpdateAccessibilityTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

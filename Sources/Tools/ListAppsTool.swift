@@ -33,6 +33,6 @@ enum ListAppsTool {
         let json = try JSONSerialization.data(
             withJSONObject: apps, options: [.prettyPrinted, .sortedKeys])
         let text = String(data: json, encoding: .utf8) ?? "[]"
-        return .init(content: [.text(text)])
+        return .init(content: [.text(text: text, annotations: nil, _meta: nil)])
     }
 }

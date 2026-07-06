@@ -44,11 +44,11 @@ enum AddBetaTesterTool {
     ) async throws -> CallTool.Result {
         guard let groupId = arguments?["groupId"]?.stringValue else {
             return .init(
-                content: [.text("Error: groupId is required")], isError: true)
+                content: [.text(text: "Error: groupId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let email = arguments?["email"]?.stringValue else {
             return .init(
-                content: [.text("Error: email is required")], isError: true)
+                content: [.text(text: "Error: email is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let firstName = arguments?["firstName"]?.stringValue
@@ -69,7 +69,7 @@ enum AddBetaTesterTool {
                 withJSONObject: preview,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Create the tester with the group relationship.
@@ -120,7 +120,7 @@ enum AddBetaTesterTool {
                 withJSONObject: resultDict,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         } catch {
             // If the tester already exists (409 conflict), try to find them
             // and add them to the group via the relationship endpoint
@@ -167,7 +167,7 @@ enum AddBetaTesterTool {
                 withJSONObject: resultDict,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
     }
 }

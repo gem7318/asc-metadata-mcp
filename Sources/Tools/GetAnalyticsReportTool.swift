@@ -50,7 +50,7 @@ enum GetAnalyticsReportTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let categoryStr = arguments?["category"]?.stringValue ?? "APP_STORE_ENGAGEMENT"
@@ -72,7 +72,7 @@ enum GetAnalyticsReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid category '\(categoryStr)'. Must be one of: APP_USAGE, APP_STORE_ENGAGEMENT, COMMERCE, FRAMEWORK_USAGE, PERFORMANCE"
+                        text: "Error: Invalid category '\(categoryStr)'. Must be one of: APP_USAGE, APP_STORE_ENGAGEMENT, COMMERCE, FRAMEWORK_USAGE, PERFORMANCE", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -89,7 +89,7 @@ enum GetAnalyticsReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid granularity '\(granularityStr)'. Must be one of: DAILY, WEEKLY, MONTHLY"
+                        text: "Error: Invalid granularity '\(granularityStr)'. Must be one of: DAILY, WEEKLY, MONTHLY", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -110,7 +110,7 @@ enum GetAnalyticsReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: No active analytics report request found. Run setup_analytics_reports first to enable analytics collection."
+                        text: "Error: No active analytics report request found. Run setup_analytics_reports first to enable analytics collection.", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -127,7 +127,7 @@ enum GetAnalyticsReportTool {
             return .init(
                 content: [
                     .text(
-                        "No reports available in category '\(categoryStr)'. Data may still be processing (can take 24-48 hours after setup)."
+                        text: "No reports available in category '\(categoryStr)'. Data may still be processing (can take 24-48 hours after setup).", annotations: nil, _meta: nil
                     )
                 ])
         }
@@ -150,7 +150,7 @@ enum GetAnalyticsReportTool {
             ]
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Step 3: Find the matching report by name
@@ -163,7 +163,7 @@ enum GetAnalyticsReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Report '\(reportName)' not found in category '\(categoryStr)'. Available reports: \(available.joined(separator: ", "))"
+                        text: "Error: Report '\(reportName)' not found in category '\(categoryStr)'. Available reports: \(available.joined(separator: ", "))", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -186,7 +186,7 @@ enum GetAnalyticsReportTool {
             return .init(
                 content: [
                     .text(
-                        "No report instances found for granularity '\(granularityStr)'\(dateStr.map { " and date '\($0)'" } ?? ""). Try a different date or granularity."
+                        text: "No report instances found for granularity '\(granularityStr)'\(dateStr.map { " and date '\($0)'" } ?? ""). Try a different date or granularity.", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -202,7 +202,7 @@ enum GetAnalyticsReportTool {
             let downloadURL = segment.attributes?.url
         else {
             return .init(
-                content: [.text("Error: No downloadable segments found for this report instance.")],
+                content: [.text(text: "Error: No downloadable segments found for this report instance.", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -220,7 +220,7 @@ enum GetAnalyticsReportTool {
             try? FileManager.default.removeItem(at: tempURL)
             guard let text = String(data: decompressed, encoding: .utf8) else {
                 return .init(
-                    content: [.text("Error: Could not decode decompressed report data as text.")],
+                    content: [.text(text: "Error: Could not decode decompressed report data as text.", annotations: nil, _meta: nil)],
                     isError: true)
             }
             csvText = text
@@ -228,7 +228,7 @@ enum GetAnalyticsReportTool {
             csvText = text
         } else {
             return .init(
-                content: [.text("Error: Could not decode downloaded report data as text.")],
+                content: [.text(text: "Error: Could not decode downloaded report data as text.", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -255,7 +255,7 @@ enum GetAnalyticsReportTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         let text = String(data: json, encoding: .utf8) ?? "{}"
-        return .init(content: [.text(text)])
+        return .init(content: [.text(text: text, annotations: nil, _meta: nil)])
     }
 
     /// Decompress gzip file using system gzip binary

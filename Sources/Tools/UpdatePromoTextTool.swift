@@ -32,17 +32,17 @@ enum UpdatePromoTextTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let promoText = arguments?["promotionalText"]?.stringValue else {
-            return .init(content: [.text("Error: promotionalText is required")], isError: true)
+            return .init(content: [.text(text: "Error: promotionalText is required", annotations: nil, _meta: nil)], isError: true)
         }
         let locale = arguments?["locale"]?.stringValue ?? "en-US"
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
         let (valid, error) = CharLimitValidator.validate(
             promoText, field: "Promotional text", maxChars: 170)
-        if !valid { return .init(content: [.text("Error: \(error!)")], isError: true) }
+        if !valid { return .init(content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true) }
 
         // Prefer the LIVE version so the edit propagates to the public product page immediately
         // (Apple permits promo-text edits on the live version without review). Fall back to the
@@ -69,7 +69,7 @@ enum UpdatePromoTextTool {
                 ]
                 let json = try JSONSerialization.data(
                     withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-                return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
             }
 
             let updateRequest = AppStoreVersionLocalizationUpdateRequest(
@@ -85,7 +85,7 @@ enum UpdatePromoTextTool {
             ]
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
     }
 }

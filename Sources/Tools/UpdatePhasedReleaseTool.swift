@@ -44,12 +44,12 @@ enum UpdatePhasedReleaseTool {
         guard let phasedReleaseId = arguments?["phasedReleaseId"]?.stringValue
         else {
             return .init(
-                content: [.text("Error: phasedReleaseId is required")],
+                content: [.text(text: "Error: phasedReleaseId is required", annotations: nil, _meta: nil)],
                 isError: true)
         }
         guard let stateStr = arguments?["phasedReleaseState"]?.stringValue else {
             return .init(
-                content: [.text("Error: phasedReleaseState is required")],
+                content: [.text(text: "Error: phasedReleaseState is required", annotations: nil, _meta: nil)],
                 isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
@@ -64,7 +64,7 @@ enum UpdatePhasedReleaseTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid phasedReleaseState '\(stateStr)'. Must be ACTIVE, PAUSED, or COMPLETE."
+                        text: "Error: Invalid phasedReleaseState '\(stateStr)'. Must be ACTIVE, PAUSED, or COMPLETE.", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -80,7 +80,7 @@ enum UpdatePhasedReleaseTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply update
@@ -114,6 +114,6 @@ enum UpdatePhasedReleaseTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

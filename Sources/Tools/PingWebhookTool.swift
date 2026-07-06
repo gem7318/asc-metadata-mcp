@@ -26,7 +26,7 @@ enum PingWebhookTool {
     ) async throws -> CallTool.Result {
         guard let webhookId = arguments?["webhookId"]?.stringValue else {
             return .init(
-                content: [.text("Error: webhookId is required")], isError: true)
+                content: [.text(text: "Error: webhookId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let request = WebhookPingCreateRequest(
@@ -51,6 +51,6 @@ enum PingWebhookTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

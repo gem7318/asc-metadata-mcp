@@ -26,7 +26,7 @@ enum ListWebhooksTool {
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
             return .init(
-                content: [.text("Error: appId is required")], isError: true)
+                content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let response = try await client.send(
@@ -64,6 +64,6 @@ enum ListWebhooksTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

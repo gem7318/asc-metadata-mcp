@@ -21,7 +21,7 @@ enum ListSubscriptionGroupsTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let response = try await client.send(
@@ -72,6 +72,6 @@ enum ListSubscriptionGroupsTool {
 
         let json = try JSONSerialization.data(
             withJSONObject: groups, options: [.prettyPrinted, .sortedKeys])
-        return .init(content: [.text(String(data: json, encoding: .utf8) ?? "[]")])
+        return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "[]", annotations: nil, _meta: nil)])
     }
 }

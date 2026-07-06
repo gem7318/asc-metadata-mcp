@@ -62,14 +62,14 @@ enum CreateSubscriptionTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let groupId = arguments?["groupId"]?.stringValue else {
-            return .init(content: [.text("Error: groupId is required")], isError: true)
+            return .init(content: [.text(text: "Error: groupId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let name = arguments?["name"]?.stringValue else {
-            return .init(content: [.text("Error: name is required")], isError: true)
+            return .init(content: [.text(text: "Error: name is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let productId = arguments?["productId"]?.stringValue else {
             return .init(
-                content: [.text("Error: productId is required")], isError: true)
+                content: [.text(text: "Error: productId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let periodStr = arguments?["subscriptionPeriod"]?.stringValue
@@ -93,7 +93,7 @@ enum CreateSubscriptionTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid subscriptionPeriod '\(periodStr)'. Use ONE_WEEK, ONE_MONTH, TWO_MONTHS, THREE_MONTHS, SIX_MONTHS, or ONE_YEAR."
+                            text: "Error: Invalid subscriptionPeriod '\(periodStr)'. Use ONE_WEEK, ONE_MONTH, TWO_MONTHS, THREE_MONTHS, SIX_MONTHS, or ONE_YEAR.", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -116,7 +116,7 @@ enum CreateSubscriptionTool {
                 withJSONObject: resultDict,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         let request = SubscriptionCreateRequest(
@@ -145,6 +145,6 @@ enum CreateSubscriptionTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

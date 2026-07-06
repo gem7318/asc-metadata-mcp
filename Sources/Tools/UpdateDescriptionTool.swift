@@ -32,17 +32,17 @@ enum UpdateDescriptionTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let description = arguments?["description"]?.stringValue else {
-            return .init(content: [.text("Error: description is required")], isError: true)
+            return .init(content: [.text(text: "Error: description is required", annotations: nil, _meta: nil)], isError: true)
         }
         let locale = arguments?["locale"]?.stringValue ?? "en-US"
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
         let (valid, error) = CharLimitValidator.validate(
             description, field: "Description", maxChars: 4000)
-        if !valid { return .init(content: [.text("Error: \(error!)")], isError: true) }
+        if !valid { return .init(content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true) }
 
         let versionLoc = try await findVersionLocalization(
             appId: appId, locale: locale, client: client)
@@ -61,7 +61,7 @@ enum UpdateDescriptionTool {
                 ]
                 let json = try JSONSerialization.data(
                     withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-                return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
             }
 
             let updateRequest = AppStoreVersionLocalizationUpdateRequest(
@@ -77,7 +77,7 @@ enum UpdateDescriptionTool {
             ]
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
     }
 }

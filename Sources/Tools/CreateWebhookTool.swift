@@ -75,29 +75,29 @@ enum CreateWebhookTool {
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
             return .init(
-                content: [.text("Error: appId is required")], isError: true)
+                content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let name = arguments?["name"]?.stringValue else {
             return .init(
-                content: [.text("Error: name is required")], isError: true)
+                content: [.text(text: "Error: name is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let urlStr = arguments?["url"]?.stringValue else {
             return .init(
-                content: [.text("Error: url is required")], isError: true)
+                content: [.text(text: "Error: url is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let secret = arguments?["secret"]?.stringValue else {
             return .init(
-                content: [.text("Error: secret is required")], isError: true)
+                content: [.text(text: "Error: secret is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let eventTypeValues = arguments?["eventTypes"]?.arrayValue else {
             return .init(
-                content: [.text("Error: eventTypes array is required")],
+                content: [.text(text: "Error: eventTypes array is required", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
         guard let parsedURL = URL(string: urlStr) else {
             return .init(
-                content: [.text("Error: Invalid URL '\(urlStr)'")],
+                content: [.text(text: "Error: Invalid URL '\(urlStr)'", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -107,7 +107,7 @@ enum CreateWebhookTool {
             guard let str = value.stringValue else {
                 return .init(
                     content: [
-                        .text("Error: eventTypes must be an array of strings")
+                        .text(text: "Error: eventTypes must be an array of strings", annotations: nil, _meta: nil)
                     ],
                     isError: true)
             }
@@ -117,7 +117,7 @@ enum CreateWebhookTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid event type '\(str)'. Valid types: \(validTypes)"
+                            text: "Error: Invalid event type '\(str)'. Valid types: \(validTypes)", annotations: nil, _meta: nil
                         )
                     ], isError: true)
             }
@@ -141,7 +141,7 @@ enum CreateWebhookTool {
                 withJSONObject: preview,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         let createAttrs = WebhookCreateRequest.Data.Attributes(
@@ -185,6 +185,6 @@ enum CreateWebhookTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

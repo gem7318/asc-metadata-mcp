@@ -39,7 +39,7 @@ enum UpdateCustomPageTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let pageId = arguments?["pageId"]?.stringValue else {
-            return .init(content: [.text("Error: pageId is required")], isError: true)
+            return .init(content: [.text(text: "Error: pageId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let newName = arguments?["name"]?.stringValue
         let newVisible = arguments?["visible"]?.boolValue
@@ -47,7 +47,7 @@ enum UpdateCustomPageTool {
 
         if newName == nil && newVisible == nil {
             return .init(
-                content: [.text("Error: At least one of name or visible must be provided")],
+                content: [.text(text: "Error: At least one of name or visible must be provided", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -83,7 +83,7 @@ enum UpdateCustomPageTool {
             let json = try JSONSerialization.data(
                 withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         let request = AppCustomProductPageUpdateRequest(
@@ -108,6 +108,6 @@ enum UpdateCustomPageTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

@@ -55,7 +55,7 @@ enum UpdateWebhookTool {
     ) async throws -> CallTool.Result {
         guard let webhookId = arguments?["webhookId"]?.stringValue else {
             return .init(
-                content: [.text("Error: webhookId is required")], isError: true)
+                content: [.text(text: "Error: webhookId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let newName = arguments?["name"]?.stringValue
@@ -72,7 +72,7 @@ enum UpdateWebhookTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one field to update must be provided")
+                        text: "Error: At least one field to update must be provided", annotations: nil, _meta: nil)
                 ],
                 isError: true)
         }
@@ -82,7 +82,7 @@ enum UpdateWebhookTool {
         if let urlStr = newUrlStr {
             guard let parsed = URL(string: urlStr) else {
                 return .init(
-                    content: [.text("Error: Invalid URL '\(urlStr)'")],
+                    content: [.text(text: "Error: Invalid URL '\(urlStr)'", annotations: nil, _meta: nil)],
                     isError: true)
             }
             newUrl = parsed
@@ -97,7 +97,7 @@ enum UpdateWebhookTool {
                     return .init(
                         content: [
                             .text(
-                                "Error: eventTypes must be an array of strings")
+                                text: "Error: eventTypes must be an array of strings", annotations: nil, _meta: nil)
                         ],
                         isError: true)
                 }
@@ -107,7 +107,7 @@ enum UpdateWebhookTool {
                     return .init(
                         content: [
                             .text(
-                                "Error: Invalid event type '\(str)'. Valid types: \(validTypes)"
+                                text: "Error: Invalid event type '\(str)'. Valid types: \(validTypes)", annotations: nil, _meta: nil
                             )
                         ], isError: true)
                 }
@@ -170,7 +170,7 @@ enum UpdateWebhookTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply update
@@ -201,6 +201,6 @@ enum UpdateWebhookTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

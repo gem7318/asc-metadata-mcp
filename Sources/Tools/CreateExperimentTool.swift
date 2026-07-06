@@ -48,18 +48,18 @@ enum CreateExperimentTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let name = arguments?["name"]?.stringValue else {
-            return .init(content: [.text("Error: name is required")], isError: true)
+            return .init(content: [.text(text: "Error: name is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let platformStr = arguments?["platform"]?.stringValue else {
             return .init(
-                content: [.text("Error: platform is required")], isError: true)
+                content: [.text(text: "Error: platform is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let trafficProportion = arguments?["trafficProportion"]?.intValue else {
             return .init(
-                content: [.text("Error: trafficProportion is required")],
+                content: [.text(text: "Error: trafficProportion is required", annotations: nil, _meta: nil)],
                 isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
@@ -68,7 +68,7 @@ enum CreateExperimentTool {
         guard trafficProportion >= 1 && trafficProportion <= 100 else {
             return .init(
                 content: [
-                    .text("Error: trafficProportion must be between 1 and 100")
+                    .text(text: "Error: trafficProportion must be between 1 and 100", annotations: nil, _meta: nil)
                 ],
                 isError: true)
         }
@@ -82,7 +82,7 @@ enum CreateExperimentTool {
         case "VISION_OS": platform = .visionOS
         default:
             return .init(
-                content: [.text("Error: Invalid platform '\(platformStr)'")],
+                content: [.text(text: "Error: Invalid platform '\(platformStr)'", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -99,7 +99,7 @@ enum CreateExperimentTool {
                 withJSONObject: resultDict,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Create the experiment
@@ -126,6 +126,6 @@ enum CreateExperimentTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

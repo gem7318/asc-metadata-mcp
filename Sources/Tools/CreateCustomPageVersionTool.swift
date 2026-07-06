@@ -35,7 +35,7 @@ enum CreateCustomPageVersionTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let pageId = arguments?["pageId"]?.stringValue else {
-            return .init(content: [.text("Error: pageId is required")], isError: true)
+            return .init(content: [.text(text: "Error: pageId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let deepLinkStr = arguments?["deepLink"]?.stringValue
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
@@ -44,7 +44,7 @@ enum CreateCustomPageVersionTool {
         if let str = deepLinkStr {
             guard let url = URL(string: str) else {
                 return .init(
-                    content: [.text("Error: Invalid deep link URL '\(str)'")],
+                    content: [.text(text: "Error: Invalid deep link URL '\(str)'", annotations: nil, _meta: nil)],
                     isError: true)
             }
             deepLink = url
@@ -60,7 +60,7 @@ enum CreateCustomPageVersionTool {
             let json = try JSONSerialization.data(
                 withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         var attributes: AppCustomProductPageVersionCreateRequest.Data.Attributes? = nil
@@ -90,6 +90,6 @@ enum CreateCustomPageVersionTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

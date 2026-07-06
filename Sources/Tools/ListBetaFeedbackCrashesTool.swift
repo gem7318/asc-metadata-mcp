@@ -53,7 +53,7 @@ enum ListBetaFeedbackCrashesTool {
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
             return .init(
-                content: [.text("Error: appId is required")], isError: true)
+                content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let filterBuild = arguments?["filterBuild"]?.stringValue
@@ -76,7 +76,7 @@ enum ListBetaFeedbackCrashesTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid platform '\(platformStr)'. Must be one of: IOS, MAC_OS, TV_OS, VISION_OS"
+                            text: "Error: Invalid platform '\(platformStr)'. Must be one of: IOS, MAC_OS, TV_OS, VISION_OS", annotations: nil, _meta: nil
                         )
                     ], isError: true)
             }
@@ -165,6 +165,6 @@ enum ListBetaFeedbackCrashesTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

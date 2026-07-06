@@ -39,7 +39,7 @@ enum GetDiagnosticsTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let diagnosticTypeStr = arguments?["diagnosticType"]?.stringValue
@@ -65,7 +65,7 @@ enum GetDiagnosticsTool {
             )
             guard let latestBuild = buildsResponse.data.first else {
                 return .init(
-                    content: [.text("Error: No valid builds found for app \(appId)")],
+                    content: [.text(text: "Error: No valid builds found for app \(appId)", annotations: nil, _meta: nil)],
                     isError: true)
             }
             buildId = latestBuild.id
@@ -89,7 +89,7 @@ enum GetDiagnosticsTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid diagnosticType '\(diagnosticTypeStr)'. Must be one of: DISK_WRITES, HANGS, LAUNCHES"
+                            text: "Error: Invalid diagnosticType '\(diagnosticTypeStr)'. Must be one of: DISK_WRITES, HANGS, LAUNCHES", annotations: nil, _meta: nil
                         )
                     ], isError: true)
             }
@@ -124,12 +124,12 @@ enum GetDiagnosticsTool {
                     "No diagnostic data exists for this build (API returned 404). Typical for builds without enough field usage or uploaded before diagnostics collection."
                 let json = try JSONSerialization.data(
                     withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-                return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
             }
             return .init(
                 content: [
                     .text(
-                        "Error fetching diagnostic signatures for build \(buildId): \(ResponseErrorFormatter.format(error))"
+                        text: "Error fetching diagnostic signatures for build \(buildId): \(ResponseErrorFormatter.format(error))", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -167,6 +167,6 @@ enum GetDiagnosticsTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         let text = String(data: json, encoding: .utf8) ?? "{}"
-        return .init(content: [.text(text)])
+        return .init(content: [.text(text: text, annotations: nil, _meta: nil)])
     }
 }

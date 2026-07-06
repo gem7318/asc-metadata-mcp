@@ -24,7 +24,7 @@ func findVersionLocalization(
     guard let version = versionsResponse.data.first else {
         return .failure(
             .init(
-                content: [.text("Error: No app store version found for app \(appId)")],
+                content: [.text(text: "Error: No app store version found for app \(appId)", annotations: nil, _meta: nil)],
                 isError: true)
         )
     }
@@ -37,7 +37,7 @@ func findVersionLocalization(
     guard let loc = versionLocsResponse.data.first else {
         return .failure(
             .init(
-                content: [.text("Error: No version localization found for locale \(locale)")],
+                content: [.text(text: "Error: No version localization found for locale \(locale)", annotations: nil, _meta: nil)],
                 isError: true)
         )
     }
@@ -69,7 +69,7 @@ func findLiveVersionLocalization(
         return .failure(
             .init(
                 content: [.text(
-                    "Error: No live (READY_FOR_SALE) version found for app \(appId). The app may not have shipped yet or has been removed from sale."
+                    text: "Error: No live (READY_FOR_SALE) version found for app \(appId). The app may not have shipped yet or has been removed from sale.", annotations: nil, _meta: nil
                 )],
                 isError: true)
         )
@@ -84,7 +84,7 @@ func findLiveVersionLocalization(
         return .failure(
             .init(
                 content: [.text(
-                    "Error: No version localization found for locale \(locale) on the live version."
+                    text: "Error: No version localization found for locale \(locale) on the live version.", annotations: nil, _meta: nil
                 )],
                 isError: true)
         )

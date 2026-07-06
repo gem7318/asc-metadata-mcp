@@ -48,7 +48,7 @@ enum UpdateSubscriptionTool {
     ) async throws -> CallTool.Result {
         guard let subscriptionId = arguments?["subscriptionId"]?.stringValue else {
             return .init(
-                content: [.text("Error: subscriptionId is required")], isError: true)
+                content: [.text(text: "Error: subscriptionId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let newName = arguments?["name"]?.stringValue
@@ -65,7 +65,7 @@ enum UpdateSubscriptionTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one field to update must be provided (name, reviewNote, familySharable, groupLevel)"
+                        text: "Error: At least one field to update must be provided (name, reviewNote, familySharable, groupLevel)", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -111,7 +111,7 @@ enum UpdateSubscriptionTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply update
@@ -139,6 +139,6 @@ enum UpdateSubscriptionTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

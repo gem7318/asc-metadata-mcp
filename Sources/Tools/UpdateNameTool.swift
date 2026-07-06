@@ -35,7 +35,7 @@ enum UpdateNameTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let locale = arguments?["locale"]?.stringValue ?? "en-US"
         let newName = arguments?["name"]?.stringValue
@@ -44,18 +44,18 @@ enum UpdateNameTool {
 
         guard newName != nil || newSubtitle != nil else {
             return .init(
-                content: [.text("Error: At least one of 'name' or 'subtitle' must be provided")],
+                content: [.text(text: "Error: At least one of 'name' or 'subtitle' must be provided", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
         // Validate character limits
         if let name = newName {
             let (valid, error) = CharLimitValidator.validate(name, field: "Name", maxChars: 30)
-            if !valid { return .init(content: [.text("Error: \(error!)")], isError: true) }
+            if !valid { return .init(content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true) }
         }
         if let subtitle = newSubtitle {
             let (valid, error) = CharLimitValidator.validate(subtitle, field: "Subtitle", maxChars: 30)
-            if !valid { return .init(content: [.text("Error: \(error!)")], isError: true) }
+            if !valid { return .init(content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true) }
         }
 
         // Find the editable AppInfo. See AppInfoSelector for the why.
@@ -65,7 +65,7 @@ enum UpdateNameTool {
         guard let appInfo = AppInfoSelector.findEditable(in: appInfosResponse.data) else {
             return .init(
                 content: [.text(
-                    "Error: No editable app info found for app \(appId). Ensure a version is in 'Prepare for Submission' (or Developer Rejected / Rejected / Ready for Review) state."
+                    text: "Error: No editable app info found for app \(appId). Ensure a version is in 'Prepare for Submission' (or Developer Rejected / Rejected / Ready for Review) state.", annotations: nil, _meta: nil
                 )],
                 isError: true)
         }
@@ -77,7 +77,7 @@ enum UpdateNameTool {
         )
         guard let infoLoc = infoLocsResponse.data.first else {
             return .init(
-                content: [.text("Error: No localization found for locale \(locale)")], isError: true)
+                content: [.text(text: "Error: No localization found for locale \(locale)", annotations: nil, _meta: nil)], isError: true)
         }
 
         let oldName = infoLoc.attributes?.name ?? ""
@@ -97,7 +97,7 @@ enum UpdateNameTool {
             let result: [String: Any] = ["status": "dry_run", "changes": changes]
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply the update
@@ -117,6 +117,6 @@ enum UpdateNameTool {
         let result: [String: Any] = ["status": "updated", "changes": changes]
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-        return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+        return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

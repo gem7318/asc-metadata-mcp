@@ -32,7 +32,7 @@ enum DeleteIAPTool {
     ) async throws -> CallTool.Result {
         guard let iapId = arguments?["iapId"]?.stringValue else {
             return .init(
-                content: [.text("Error: iapId is required")], isError: true)
+                content: [.text(text: "Error: iapId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
@@ -64,7 +64,7 @@ enum DeleteIAPTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Delete the in-app purchase
@@ -77,6 +77,6 @@ enum DeleteIAPTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

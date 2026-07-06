@@ -25,7 +25,7 @@ enum GetMetadataTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let locale = arguments?["locale"]?.stringValue ?? "en-US"
 
@@ -37,7 +37,7 @@ enum GetMetadataTool {
             Resources.v1.apps.id(appId).appInfos.get()
         )
         guard let appInfo = AppInfoSelector.findPreferredOrFirst(in: appInfosResponse.data) else {
-            return .init(content: [.text("Error: No app info found for app \(appId)")], isError: true)
+            return .init(content: [.text(text: "Error: No app info found for app \(appId)", annotations: nil, _meta: nil)], isError: true)
         }
 
         let infoLocsResponse = try await client.send(
@@ -53,7 +53,7 @@ enum GetMetadataTool {
         )
         guard let version = versionsResponse.data.first else {
             return .init(
-                content: [.text("Error: No app store version found for app \(appId)")], isError: true
+                content: [.text(text: "Error: No app store version found for app \(appId)", annotations: nil, _meta: nil)], isError: true
             )
         }
 
@@ -93,6 +93,6 @@ enum GetMetadataTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         let text = String(data: json, encoding: .utf8) ?? "{}"
-        return .init(content: [.text(text)])
+        return .init(content: [.text(text: text, annotations: nil, _meta: nil)])
     }
 }

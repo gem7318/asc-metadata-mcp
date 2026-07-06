@@ -289,13 +289,13 @@ await server.withMethodHandler(CallTool.self) { params in
             return try await ListBetaFeedbackScreenshotsTool.handle(
                 arguments: params.arguments, client: ascClient)
         default:
-            return .init(content: [.text("Unknown tool: \(params.name)")], isError: true)
+            return .init(content: [.text(text: "Unknown tool: \(params.name)", annotations: nil, _meta: nil)], isError: true)
         }
     } catch let error as ResponseError {
         return .init(
-            content: [.text("Error: \(ResponseErrorFormatter.format(error))")], isError: true)
+            content: [.text(text: "Error: \(ResponseErrorFormatter.format(error))", annotations: nil, _meta: nil)], isError: true)
     } catch {
-        return .init(content: [.text("Error: \(error.localizedDescription)")], isError: true)
+        return .init(content: [.text(text: "Error: \(error.localizedDescription)", annotations: nil, _meta: nil)], isError: true)
     }
 }
 

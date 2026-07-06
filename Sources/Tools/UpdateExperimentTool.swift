@@ -46,7 +46,7 @@ enum UpdateExperimentTool {
     ) async throws -> CallTool.Result {
         guard let experimentId = arguments?["experimentId"]?.stringValue else {
             return .init(
-                content: [.text("Error: experimentId is required")], isError: true)
+                content: [.text(text: "Error: experimentId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let newName = arguments?["name"]?.stringValue
@@ -59,7 +59,7 @@ enum UpdateExperimentTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one field to update must be provided (name, trafficProportion, or started)"
+                        text: "Error: At least one field to update must be provided (name, trafficProportion, or started)", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -69,7 +69,7 @@ enum UpdateExperimentTool {
         if let tp = newTrafficProportion, (tp < 1 || tp > 100) {
             return .init(
                 content: [
-                    .text("Error: trafficProportion must be between 1 and 100")
+                    .text(text: "Error: trafficProportion must be between 1 and 100", annotations: nil, _meta: nil)
                 ],
                 isError: true)
         }
@@ -109,7 +109,7 @@ enum UpdateExperimentTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply update
@@ -137,6 +137,6 @@ enum UpdateExperimentTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

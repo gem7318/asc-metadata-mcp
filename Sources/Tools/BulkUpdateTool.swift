@@ -41,7 +41,7 @@ enum BulkUpdateTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let locale = arguments?["locale"]?.stringValue ?? "en-US"
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
@@ -56,7 +56,7 @@ enum BulkUpdateTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one field (keywords, description, promotionalText, whatsNew) must be provided"
+                        text: "Error: At least one field (keywords, description, promotionalText, whatsNew) must be provided", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -89,7 +89,7 @@ enum BulkUpdateTool {
 
         if !validationErrors.isEmpty {
             return .init(
-                content: [.text("Validation errors:\n" + validationErrors.joined(separator: "\n"))],
+                content: [.text(text: "Validation errors:\n" + validationErrors.joined(separator: "\n"), annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -135,7 +135,7 @@ enum BulkUpdateTool {
                 if !warnings.isEmpty { result["warnings"] = warnings }
                 let json = try JSONSerialization.data(
                     withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-                return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
             }
 
             // Apply the update — single PATCH with all fields
@@ -161,7 +161,7 @@ enum BulkUpdateTool {
             if !warnings.isEmpty { result["warnings"] = warnings }
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
     }
 }

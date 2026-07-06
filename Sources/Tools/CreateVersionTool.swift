@@ -51,13 +51,13 @@ enum CreateVersionTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let versionString = arguments?["versionString"]?.stringValue else {
-            return .init(content: [.text("Error: versionString is required")], isError: true)
+            return .init(content: [.text(text: "Error: versionString is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let platformStr = arguments?["platform"]?.stringValue else {
-            return .init(content: [.text("Error: platform is required")], isError: true)
+            return .init(content: [.text(text: "Error: platform is required", annotations: nil, _meta: nil)], isError: true)
         }
         let releaseTypeStr = arguments?["releaseType"]?.stringValue ?? "afterApproval"
         let earliestReleaseDateStr = arguments?["earliestReleaseDate"]?.stringValue
@@ -74,7 +74,7 @@ enum CreateVersionTool {
         default:
             return .init(
                 content: [
-                    .text("Error: Invalid platform '\(platformStr)'. Must be iOS, macOS, tvOS, or visionOS")
+                    .text(text: "Error: Invalid platform '\(platformStr)'. Must be iOS, macOS, tvOS, or visionOS", annotations: nil, _meta: nil)
                 ], isError: true)
         }
 
@@ -88,7 +88,7 @@ enum CreateVersionTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid releaseType '\(releaseTypeStr)'. Must be manual, afterApproval, or scheduled"
+                        text: "Error: Invalid releaseType '\(releaseTypeStr)'. Must be manual, afterApproval, or scheduled", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -99,7 +99,7 @@ enum CreateVersionTool {
             guard let dateStr = earliestReleaseDateStr else {
                 return .init(
                     content: [
-                        .text("Error: earliestReleaseDate is required when releaseType is scheduled")
+                        .text(text: "Error: earliestReleaseDate is required when releaseType is scheduled", annotations: nil, _meta: nil)
                     ], isError: true)
             }
             let formatter = ISO8601DateFormatter()
@@ -113,7 +113,7 @@ enum CreateVersionTool {
                     return .init(
                         content: [
                             .text(
-                                "Error: Could not parse earliestReleaseDate '\(dateStr)'. Use ISO 8601 format (e.g. 2026-03-15T10:00:00+00:00)"
+                                text: "Error: Could not parse earliestReleaseDate '\(dateStr)'. Use ISO 8601 format (e.g. 2026-03-15T10:00:00+00:00)", annotations: nil, _meta: nil
                             )
                         ], isError: true)
                 }
@@ -154,7 +154,7 @@ enum CreateVersionTool {
             }
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Build and send create request
@@ -190,6 +190,6 @@ enum CreateVersionTool {
         }
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-        return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+        return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

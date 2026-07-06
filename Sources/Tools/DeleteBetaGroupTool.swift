@@ -32,7 +32,7 @@ enum DeleteBetaGroupTool {
     ) async throws -> CallTool.Result {
         guard let groupId = arguments?["groupId"]?.stringValue else {
             return .init(
-                content: [.text("Error: groupId is required")], isError: true)
+                content: [.text(text: "Error: groupId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
@@ -80,7 +80,7 @@ enum DeleteBetaGroupTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Delete the group
@@ -94,6 +94,6 @@ enum DeleteBetaGroupTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

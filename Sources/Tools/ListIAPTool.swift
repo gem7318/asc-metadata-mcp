@@ -53,7 +53,7 @@ enum ListIAPTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let filterStateStr = arguments?["filterState"]?.stringValue
         let filterTypeStr = arguments?["filterType"]?.stringValue
@@ -63,7 +63,7 @@ enum ListIAPTool {
         if let stateStr = filterStateStr {
             guard let state = Resources.V1.Apps.WithID.InAppPurchasesV2.FilterState(rawValue: stateStr) else {
                 return .init(
-                    content: [.text("Error: Invalid filterState '\(stateStr)'")],
+                    content: [.text(text: "Error: Invalid filterState '\(stateStr)'", annotations: nil, _meta: nil)],
                     isError: true)
             }
             filterState = [state]
@@ -73,7 +73,7 @@ enum ListIAPTool {
         if let typeStr = filterTypeStr {
             guard let type = Resources.V1.Apps.WithID.InAppPurchasesV2.FilterInAppPurchaseType(rawValue: typeStr) else {
                 return .init(
-                    content: [.text("Error: Invalid filterType '\(typeStr)'")],
+                    content: [.text(text: "Error: Invalid filterType '\(typeStr)'", annotations: nil, _meta: nil)],
                     isError: true)
             }
             filterType = [type]
@@ -108,6 +108,6 @@ enum ListIAPTool {
 
         let json = try JSONSerialization.data(
             withJSONObject: iaps, options: [.prettyPrinted, .sortedKeys])
-        return .init(content: [.text(String(data: json, encoding: .utf8) ?? "[]")])
+        return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "[]", annotations: nil, _meta: nil)])
     }
 }

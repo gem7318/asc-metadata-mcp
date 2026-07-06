@@ -55,18 +55,18 @@ enum CreateIAPTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let name = arguments?["name"]?.stringValue else {
-            return .init(content: [.text("Error: name is required")], isError: true)
+            return .init(content: [.text(text: "Error: name is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let productId = arguments?["productId"]?.stringValue else {
             return .init(
-                content: [.text("Error: productId is required")], isError: true)
+                content: [.text(text: "Error: productId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let typeStr = arguments?["inAppPurchaseType"]?.stringValue else {
             return .init(
-                content: [.text("Error: inAppPurchaseType is required")],
+                content: [.text(text: "Error: inAppPurchaseType is required", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -77,7 +77,7 @@ enum CreateIAPTool {
         // Map inAppPurchaseType
         guard let iapType = InAppPurchaseType(rawValue: typeStr) else {
             return .init(
-                content: [.text("Error: Invalid inAppPurchaseType '\(typeStr)'")],
+                content: [.text(text: "Error: Invalid inAppPurchaseType '\(typeStr)'", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -97,7 +97,7 @@ enum CreateIAPTool {
                 withJSONObject: resultDict,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Create the in-app purchase
@@ -126,6 +126,6 @@ enum CreateIAPTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

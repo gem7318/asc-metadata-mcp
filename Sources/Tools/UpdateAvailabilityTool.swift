@@ -45,7 +45,7 @@ enum UpdateAvailabilityTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let availableInNewTerritories = arguments?["availableInNewTerritories"]?.boolValue
@@ -61,7 +61,7 @@ enum UpdateAvailabilityTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one of availableInNewTerritories, addTerritories, or removeTerritories must be provided"
+                        text: "Error: At least one of availableInNewTerritories, addTerritories, or removeTerritories must be provided", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -125,7 +125,7 @@ enum UpdateAvailabilityTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Territory '\(code)' not found. Use get_availability to see valid territory codes."
+                            text: "Error: Territory '\(code)' not found. Use get_availability to see valid territory codes.", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -140,7 +140,7 @@ enum UpdateAvailabilityTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Territory '\(code)' not found. Use get_availability to see valid territory codes."
+                            text: "Error: Territory '\(code)' not found. Use get_availability to see valid territory codes.", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -164,7 +164,7 @@ enum UpdateAvailabilityTool {
             ]
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         if dryRun {
@@ -175,7 +175,7 @@ enum UpdateAvailabilityTool {
             ]
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply territory availability changes via PATCH on individual territory availabilities
@@ -259,6 +259,6 @@ enum UpdateAvailabilityTool {
 
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-        return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+        return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

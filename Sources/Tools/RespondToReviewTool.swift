@@ -35,11 +35,11 @@ enum RespondToReviewTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let reviewId = arguments?["reviewId"]?.stringValue else {
-            return .init(content: [.text("Error: reviewId is required")], isError: true)
+            return .init(content: [.text(text: "Error: reviewId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let responseBody = arguments?["responseBody"]?.stringValue else {
             return .init(
-                content: [.text("Error: responseBody is required")], isError: true)
+                content: [.text(text: "Error: responseBody is required", annotations: nil, _meta: nil)], isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
@@ -47,7 +47,7 @@ enum RespondToReviewTool {
         let (valid, error) = CharLimitValidator.validate(
             responseBody, field: "Response", maxChars: 5970)
         if !valid {
-            return .init(content: [.text("Error: \(error!)")], isError: true)
+            return .init(content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true)
         }
 
         // Fetch the review for context
@@ -103,7 +103,7 @@ enum RespondToReviewTool {
             let json = try JSONSerialization.data(
                 withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Create the response
@@ -129,6 +129,6 @@ enum RespondToReviewTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

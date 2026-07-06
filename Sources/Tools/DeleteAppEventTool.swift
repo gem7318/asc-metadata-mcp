@@ -31,7 +31,7 @@ enum DeleteAppEventTool {
     ) async throws -> CallTool.Result {
         guard let eventId = arguments?["eventId"]?.stringValue else {
             return .init(
-                content: [.text("Error: eventId is required")], isError: true)
+                content: [.text(text: "Error: eventId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
@@ -68,7 +68,7 @@ enum DeleteAppEventTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Delete the event
@@ -81,6 +81,6 @@ enum DeleteAppEventTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

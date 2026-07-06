@@ -45,7 +45,7 @@ enum UpdateIAPTool {
     ) async throws -> CallTool.Result {
         guard let iapId = arguments?["iapId"]?.stringValue else {
             return .init(
-                content: [.text("Error: iapId is required")], isError: true)
+                content: [.text(text: "Error: iapId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let newName = arguments?["name"]?.stringValue
@@ -59,7 +59,7 @@ enum UpdateIAPTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one field to update must be provided")
+                        text: "Error: At least one field to update must be provided", annotations: nil, _meta: nil)
                 ],
                 isError: true)
         }
@@ -97,7 +97,7 @@ enum UpdateIAPTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply update
@@ -122,6 +122,6 @@ enum UpdateIAPTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

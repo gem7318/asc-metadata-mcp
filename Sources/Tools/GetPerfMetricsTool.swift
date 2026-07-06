@@ -32,7 +32,7 @@ enum GetPerfMetricsTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let metricTypeStr = arguments?["metricType"]?.stringValue
@@ -53,7 +53,7 @@ enum GetPerfMetricsTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid metricType '\(metricTypeStr)'. Must be one of: DISK, HANG, BATTERY, LAUNCH, MEMORY, ANIMATION, TERMINATION"
+                            text: "Error: Invalid metricType '\(metricTypeStr)'. Must be one of: DISK, HANG, BATTERY, LAUNCH, MEMORY, ANIMATION, TERMINATION", annotations: nil, _meta: nil
                         )
                     ], isError: true)
             }
@@ -165,6 +165,6 @@ enum GetPerfMetricsTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         let text = String(data: json, encoding: .utf8) ?? "{}"
-        return .init(content: [.text(text)])
+        return .init(content: [.text(text: text, annotations: nil, _meta: nil)])
     }
 }

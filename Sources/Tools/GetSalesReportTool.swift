@@ -80,7 +80,7 @@ enum GetSalesReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: vendorNumber is required (pass it as an argument or set \"vendorNumber\" in ~/.asc-metadata-mcp/config.json)"
+                        text: "Error: vendorNumber is required (pass it as an argument or set \"vendorNumber\" in ~/.asc-metadata-mcp/config.json)", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -104,7 +104,7 @@ enum GetSalesReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid reportType '\(reportTypeStr)'. Must be one of: SALES, PRE_ORDER, SUBSCRIPTION, SUBSCRIPTION_EVENT, SUBSCRIBER, INSTALLS"
+                        text: "Error: Invalid reportType '\(reportTypeStr)'. Must be one of: SALES, PRE_ORDER, SUBSCRIPTION, SUBSCRIPTION_EVENT, SUBSCRIBER, INSTALLS", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -131,7 +131,7 @@ enum GetSalesReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid reportSubType '\(reportSubTypeStr)'. Must be one of: SUMMARY, DETAILED, SUMMARY_INSTALL_TYPE, SUMMARY_TERRITORY, SUMMARY_CHANNEL"
+                        text: "Error: Invalid reportSubType '\(reportSubTypeStr)'. Must be one of: SUMMARY, DETAILED, SUMMARY_INSTALL_TYPE, SUMMARY_TERRITORY, SUMMARY_CHANNEL", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -148,7 +148,7 @@ enum GetSalesReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid frequency '\(frequencyStr)'. Must be one of: DAILY, WEEKLY, MONTHLY, YEARLY"
+                        text: "Error: Invalid frequency '\(frequencyStr)'. Must be one of: DAILY, WEEKLY, MONTHLY, YEARLY", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -178,7 +178,7 @@ enum GetSalesReportTool {
             )
         } catch let error as ResponseError {
             let message = ResponseErrorFormatter.format(error)
-            return .init(content: [.text("Error downloading sales report: \(message)")], isError: true)
+            return .init(content: [.text(text: "Error downloading sales report: \(message)", annotations: nil, _meta: nil)], isError: true)
         }
 
         // Read and decompress file contents
@@ -191,7 +191,7 @@ enum GetSalesReportTool {
             let decompressed = try decompressGzip(fileURL: fileURL)
             guard let text = String(data: decompressed, encoding: .utf8) else {
                 return .init(
-                    content: [.text("Error: Could not decode decompressed report data as text.")],
+                    content: [.text(text: "Error: Could not decode decompressed report data as text.", annotations: nil, _meta: nil)],
                     isError: true)
             }
             tsvText = text
@@ -199,7 +199,7 @@ enum GetSalesReportTool {
             tsvText = text
         } else {
             return .init(
-                content: [.text("Error: Could not decode downloaded report data as text.")],
+                content: [.text(text: "Error: Could not decode downloaded report data as text.", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -229,7 +229,7 @@ enum GetSalesReportTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: aggregateBy=APP needs columns missing from this report: \(missing.joined(separator: ", ")). It supports SALES-style reports (SALES/INSTALLS with SUMMARY or DETAILED sub-type)."
+                            text: "Error: aggregateBy=APP needs columns missing from this report: \(missing.joined(separator: ", ")). It supports SALES-style reports (SALES/INSTALLS with SUMMARY or DETAILED sub-type).", annotations: nil, _meta: nil
                         )
                     ], isError: true)
             }
@@ -257,7 +257,7 @@ enum GetSalesReportTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         let text = String(data: json, encoding: .utf8) ?? "{}"
-        return .init(content: [.text(text)])
+        return .init(content: [.text(text: text, annotations: nil, _meta: nil)])
     }
 
     // MARK: - Per-app aggregation

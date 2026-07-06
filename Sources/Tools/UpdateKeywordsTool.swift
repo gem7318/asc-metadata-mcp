@@ -33,10 +33,10 @@ enum UpdateKeywordsTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let keywords = arguments?["keywords"]?.stringValue else {
-            return .init(content: [.text("Error: keywords is required")], isError: true)
+            return .init(content: [.text(text: "Error: keywords is required", annotations: nil, _meta: nil)], isError: true)
         }
         let locale = arguments?["locale"]?.stringValue ?? "en-US"
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
@@ -44,7 +44,7 @@ enum UpdateKeywordsTool {
         // Validate keywords
         let validation = KeywordValidator.validate(keywords)
         if !validation.isValid {
-            return .init(content: [.text("Error: \(validation.error!)")], isError: true)
+            return .init(content: [.text(text: "Error: \(validation.error!)", annotations: nil, _meta: nil)], isError: true)
         }
 
         // Find the version localization
@@ -53,7 +53,7 @@ enum UpdateKeywordsTool {
         )
         guard let version = versionsResponse.data.first else {
             return .init(
-                content: [.text("Error: No app store version found for app \(appId)")], isError: true
+                content: [.text(text: "Error: No app store version found for app \(appId)", annotations: nil, _meta: nil)], isError: true
             )
         }
 
@@ -64,7 +64,7 @@ enum UpdateKeywordsTool {
         )
         guard let versionLoc = versionLocsResponse.data.first else {
             return .init(
-                content: [.text("Error: No version localization found for locale \(locale)")],
+                content: [.text(text: "Error: No version localization found for locale \(locale)", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -81,7 +81,7 @@ enum UpdateKeywordsTool {
             ]
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-            return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply the update
@@ -103,6 +103,6 @@ enum UpdateKeywordsTool {
         ]
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
-        return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+        return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

@@ -82,7 +82,7 @@ enum UpdateAppEventTool {
     ) async throws -> CallTool.Result {
         guard let eventId = arguments?["eventId"]?.stringValue else {
             return .init(
-                content: [.text("Error: eventId is required")], isError: true)
+                content: [.text(text: "Error: eventId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let newReferenceName = arguments?["referenceName"]?.stringValue
@@ -105,7 +105,7 @@ enum UpdateAppEventTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one field to update must be provided")
+                        text: "Error: At least one field to update must be provided", annotations: nil, _meta: nil)
                 ],
                 isError: true)
         }
@@ -139,7 +139,7 @@ enum UpdateAppEventTool {
             case "SPECIAL_EVENT": badge = .specialEvent
             default:
                 return .init(
-                    content: [.text("Error: Invalid badge '\(badgeStr)'")],
+                    content: [.text(text: "Error: Invalid badge '\(badgeStr)'", annotations: nil, _meta: nil)],
                     isError: true)
             }
             changes["badge"] = [
@@ -156,7 +156,7 @@ enum UpdateAppEventTool {
             default:
                 return .init(
                     content: [
-                        .text("Error: Invalid priority '\(priorityStr)'")
+                        .text(text: "Error: Invalid priority '\(priorityStr)'", annotations: nil, _meta: nil)
                     ],
                     isError: true)
             }
@@ -176,7 +176,7 @@ enum UpdateAppEventTool {
             default:
                 return .init(
                     content: [
-                        .text("Error: Invalid purpose '\(purposeStr)'")
+                        .text(text: "Error: Invalid purpose '\(purposeStr)'", annotations: nil, _meta: nil)
                     ],
                     isError: true)
             }
@@ -192,7 +192,7 @@ enum UpdateAppEventTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid deep link URL '\(deepLinkStr)'")
+                            text: "Error: Invalid deep link URL '\(deepLinkStr)'", annotations: nil, _meta: nil)
                     ],
                     isError: true)
             }
@@ -225,7 +225,7 @@ enum UpdateAppEventTool {
             else {
                 return .init(
                     content: [
-                        .text("Error: Invalid territorySchedules JSON")
+                        .text(text: "Error: Invalid territorySchedules JSON", annotations: nil, _meta: nil)
                     ],
                     isError: true)
             }
@@ -257,7 +257,7 @@ enum UpdateAppEventTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply update
@@ -287,7 +287,7 @@ enum UpdateAppEventTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 
     private static func parseISO8601(_ str: String) -> Date? {

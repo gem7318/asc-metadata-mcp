@@ -32,7 +32,7 @@ enum DeleteReviewResponseTool {
     ) async throws -> CallTool.Result {
         guard let responseId = arguments?["responseId"]?.stringValue else {
             return .init(
-                content: [.text("Error: responseId is required")], isError: true)
+                content: [.text(text: "Error: responseId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
@@ -67,7 +67,7 @@ enum DeleteReviewResponseTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Delete the response
@@ -82,6 +82,6 @@ enum DeleteReviewResponseTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

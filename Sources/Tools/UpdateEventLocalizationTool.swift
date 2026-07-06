@@ -47,11 +47,11 @@ enum UpdateEventLocalizationTool {
     ) async throws -> CallTool.Result {
         guard let eventId = arguments?["eventId"]?.stringValue else {
             return .init(
-                content: [.text("Error: eventId is required")], isError: true)
+                content: [.text(text: "Error: eventId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let locale = arguments?["locale"]?.stringValue else {
             return .init(
-                content: [.text("Error: locale is required")], isError: true)
+                content: [.text(text: "Error: locale is required", annotations: nil, _meta: nil)], isError: true)
         }
         let name = arguments?["name"]?.stringValue
         let shortDescription = arguments?["shortDescription"]?.stringValue
@@ -63,7 +63,7 @@ enum UpdateEventLocalizationTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid locale '\(locale)'. Use list_locales to see valid locales."
+                        text: "Error: Invalid locale '\(locale)'. Use list_locales to see valid locales.", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -75,7 +75,7 @@ enum UpdateEventLocalizationTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one of name, shortDescription, or longDescription must be provided"
+                        text: "Error: At least one of name, shortDescription, or longDescription must be provided", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -87,7 +87,7 @@ enum UpdateEventLocalizationTool {
                 n, field: "Name", maxChars: 30)
             if !valid {
                 return .init(
-                    content: [.text("Error: \(error!)")], isError: true)
+                    content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true)
             }
         }
         if let sd = shortDescription {
@@ -95,7 +95,7 @@ enum UpdateEventLocalizationTool {
                 sd, field: "Short description", maxChars: 50)
             if !valid {
                 return .init(
-                    content: [.text("Error: \(error!)")], isError: true)
+                    content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true)
             }
         }
         if let ld = longDescription {
@@ -103,7 +103,7 @@ enum UpdateEventLocalizationTool {
                 ld, field: "Long description", maxChars: 120)
             if !valid {
                 return .init(
-                    content: [.text("Error: \(error!)")], isError: true)
+                    content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true)
             }
         }
 
@@ -153,7 +153,7 @@ enum UpdateEventLocalizationTool {
                     options: [.prettyPrinted, .sortedKeys])
                 return .init(
                     content: [
-                        .text(String(data: json, encoding: .utf8) ?? "{}")
+                        .text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)
                     ])
             }
 
@@ -181,7 +181,7 @@ enum UpdateEventLocalizationTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         } else {
             // CREATE new localization
             var preview: [String: Any] = ["locale": locale]
@@ -204,7 +204,7 @@ enum UpdateEventLocalizationTool {
                     options: [.prettyPrinted, .sortedKeys])
                 return .init(
                     content: [
-                        .text(String(data: json, encoding: .utf8) ?? "{}")
+                        .text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)
                     ])
             }
 
@@ -234,7 +234,7 @@ enum UpdateEventLocalizationTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
     }
 }

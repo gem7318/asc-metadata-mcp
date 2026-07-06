@@ -98,11 +98,11 @@ enum CreateAppEventTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let appId = arguments?["appId"]?.stringValue else {
-            return .init(content: [.text("Error: appId is required")], isError: true)
+            return .init(content: [.text(text: "Error: appId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let referenceName = arguments?["referenceName"]?.stringValue else {
             return .init(
-                content: [.text("Error: referenceName is required")], isError: true)
+                content: [.text(text: "Error: referenceName is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let badgeStr = arguments?["badge"]?.stringValue
@@ -123,21 +123,21 @@ enum CreateAppEventTool {
             let (valid, error) = CharLimitValidator.validate(
                 name, field: "Name", maxChars: 30)
             if !valid {
-                return .init(content: [.text("Error: \(error!)")], isError: true)
+                return .init(content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true)
             }
         }
         if let sd = shortDescription {
             let (valid, error) = CharLimitValidator.validate(
                 sd, field: "Short description", maxChars: 50)
             if !valid {
-                return .init(content: [.text("Error: \(error!)")], isError: true)
+                return .init(content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true)
             }
         }
         if let ld = longDescription {
             let (valid, error) = CharLimitValidator.validate(
                 ld, field: "Long description", maxChars: 120)
             if !valid {
-                return .init(content: [.text("Error: \(error!)")], isError: true)
+                return .init(content: [.text(text: "Error: \(error!)", annotations: nil, _meta: nil)], isError: true)
             }
         }
 
@@ -147,7 +147,7 @@ enum CreateAppEventTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid locale '\(locale)'. Use list_locales to see valid locales."
+                            text: "Error: Invalid locale '\(locale)'. Use list_locales to see valid locales.", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -167,7 +167,7 @@ enum CreateAppEventTool {
             case "SPECIAL_EVENT": badge = .specialEvent
             default:
                 return .init(
-                    content: [.text("Error: Invalid badge '\(badgeStr)'")],
+                    content: [.text(text: "Error: Invalid badge '\(badgeStr)'", annotations: nil, _meta: nil)],
                     isError: true)
             }
         }
@@ -180,7 +180,7 @@ enum CreateAppEventTool {
             case "NORMAL": priority = .normal
             default:
                 return .init(
-                    content: [.text("Error: Invalid priority '\(priorityStr)'")],
+                    content: [.text(text: "Error: Invalid priority '\(priorityStr)'", annotations: nil, _meta: nil)],
                     isError: true)
             }
         }
@@ -195,7 +195,7 @@ enum CreateAppEventTool {
             case "BRING_BACK_LAPSED_USERS": purpose = .bringBackLapsedUsers
             default:
                 return .init(
-                    content: [.text("Error: Invalid purpose '\(purposeStr)'")],
+                    content: [.text(text: "Error: Invalid purpose '\(purposeStr)'", annotations: nil, _meta: nil)],
                     isError: true)
             }
         }
@@ -206,7 +206,7 @@ enum CreateAppEventTool {
             guard let url = URL(string: deepLinkStr) else {
                 return .init(
                     content: [
-                        .text("Error: Invalid deep link URL '\(deepLinkStr)'")
+                        .text(text: "Error: Invalid deep link URL '\(deepLinkStr)'", annotations: nil, _meta: nil)
                     ],
                     isError: true)
             }
@@ -223,7 +223,7 @@ enum CreateAppEventTool {
             else {
                 return .init(
                     content: [
-                        .text("Error: Invalid territorySchedules JSON")
+                        .text(text: "Error: Invalid territorySchedules JSON", annotations: nil, _meta: nil)
                     ],
                     isError: true)
             }
@@ -277,7 +277,7 @@ enum CreateAppEventTool {
                 withJSONObject: resultDict,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Create the event
@@ -330,7 +330,7 @@ enum CreateAppEventTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 
     private static func parseISO8601(_ str: String) -> Date? {

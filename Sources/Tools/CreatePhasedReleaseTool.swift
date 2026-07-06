@@ -32,7 +32,7 @@ enum CreatePhasedReleaseTool {
     ) async throws -> CallTool.Result {
         guard let versionId = arguments?["versionId"]?.stringValue else {
             return .init(
-                content: [.text("Error: versionId is required")], isError: true)
+                content: [.text(text: "Error: versionId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
@@ -59,7 +59,7 @@ enum CreatePhasedReleaseTool {
             let json = try JSONSerialization.data(
                 withJSONObject: info, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         if dryRun {
@@ -74,7 +74,7 @@ enum CreatePhasedReleaseTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Create phased release
@@ -110,6 +110,6 @@ enum CreatePhasedReleaseTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

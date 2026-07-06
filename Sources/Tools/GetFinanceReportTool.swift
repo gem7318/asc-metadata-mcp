@@ -49,15 +49,15 @@ enum GetFinanceReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: vendorNumber is required (pass it as an argument or set \"vendorNumber\" in ~/.asc-metadata-mcp/config.json)"
+                        text: "Error: vendorNumber is required (pass it as an argument or set \"vendorNumber\" in ~/.asc-metadata-mcp/config.json)", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
         guard let reportDate = arguments?["reportDate"]?.stringValue else {
-            return .init(content: [.text("Error: reportDate is required (YYYY-MM format)")], isError: true)
+            return .init(content: [.text(text: "Error: reportDate is required (YYYY-MM format)", annotations: nil, _meta: nil)], isError: true)
         }
         guard let regionCode = arguments?["regionCode"]?.stringValue else {
-            return .init(content: [.text("Error: regionCode is required (e.g. US, EU, JP)")], isError: true)
+            return .init(content: [.text(text: "Error: regionCode is required (e.g. US, EU, JP)", annotations: nil, _meta: nil)], isError: true)
         }
 
         let reportTypeStr = arguments?["reportType"]?.stringValue ?? "FINANCIAL"
@@ -72,7 +72,7 @@ enum GetFinanceReportTool {
             return .init(
                 content: [
                     .text(
-                        "Error: Invalid reportType '\(reportTypeStr)'. Must be one of: FINANCIAL, FINANCE_DETAIL"
+                        text: "Error: Invalid reportType '\(reportTypeStr)'. Must be one of: FINANCIAL, FINANCE_DETAIL", annotations: nil, _meta: nil
                     )
                 ], isError: true)
         }
@@ -90,7 +90,7 @@ enum GetFinanceReportTool {
             )
         } catch let error as ResponseError {
             let message = ResponseErrorFormatter.format(error)
-            return .init(content: [.text("Error downloading finance report: \(message)")], isError: true)
+            return .init(content: [.text(text: "Error downloading finance report: \(message)", annotations: nil, _meta: nil)], isError: true)
         }
 
         // Read and decompress file contents
@@ -103,7 +103,7 @@ enum GetFinanceReportTool {
             let decompressed = try decompressGzip(fileURL: fileURL)
             guard let text = String(data: decompressed, encoding: .utf8) else {
                 return .init(
-                    content: [.text("Error: Could not decode decompressed report data as text.")],
+                    content: [.text(text: "Error: Could not decode decompressed report data as text.", annotations: nil, _meta: nil)],
                     isError: true)
             }
             tsvText = text
@@ -111,7 +111,7 @@ enum GetFinanceReportTool {
             tsvText = text
         } else {
             return .init(
-                content: [.text("Error: Could not decode downloaded report data as text.")],
+                content: [.text(text: "Error: Could not decode downloaded report data as text.", annotations: nil, _meta: nil)],
                 isError: true)
         }
 
@@ -140,7 +140,7 @@ enum GetFinanceReportTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         let text = String(data: json, encoding: .utf8) ?? "{}"
-        return .init(content: [.text(text)])
+        return .init(content: [.text(text: text, annotations: nil, _meta: nil)])
     }
 
     private static func decompressGzip(fileURL: URL) throws -> Data {

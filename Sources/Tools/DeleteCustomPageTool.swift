@@ -31,7 +31,7 @@ enum DeleteCustomPageTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let pageId = arguments?["pageId"]?.stringValue else {
-            return .init(content: [.text("Error: pageId is required")], isError: true)
+            return .init(content: [.text(text: "Error: pageId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
@@ -58,7 +58,7 @@ enum DeleteCustomPageTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         _ = try await client.send(
@@ -72,6 +72,6 @@ enum DeleteCustomPageTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

@@ -199,7 +199,7 @@ enum UpdateAgeRatingTool {
         guard let declarationId = arguments?["declarationId"]?.stringValue
         else {
             return .init(
-                content: [.text("Error: declarationId is required")],
+                content: [.text(text: "Error: declarationId is required", annotations: nil, _meta: nil)],
                 isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
@@ -260,7 +260,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid alcoholTobaccoOrDrugUseOrReferences value '\(v)'"
+                            text: "Error: Invalid alcoholTobaccoOrDrugUseOrReferences value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -278,7 +278,7 @@ enum UpdateAgeRatingTool {
             else {
                 return .init(
                     content: [
-                        .text("Error: Invalid contests value '\(v)'")
+                        .text(text: "Error: Invalid contests value '\(v)'", annotations: nil, _meta: nil)
                     ],
                     isError: true)
             }
@@ -296,7 +296,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid gamblingSimulated value '\(v)'"
+                            text: "Error: Invalid gamblingSimulated value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -315,7 +315,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid gunsOrOtherWeapons value '\(v)'"
+                            text: "Error: Invalid gunsOrOtherWeapons value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -334,7 +334,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid medicalOrTreatmentInformation value '\(v)'"
+                            text: "Error: Invalid medicalOrTreatmentInformation value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -353,7 +353,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid profanityOrCrudeHumor value '\(v)'"
+                            text: "Error: Invalid profanityOrCrudeHumor value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -372,7 +372,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid sexualContentGraphicAndNudity value '\(v)'"
+                            text: "Error: Invalid sexualContentGraphicAndNudity value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -391,7 +391,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid sexualContentOrNudity value '\(v)'"
+                            text: "Error: Invalid sexualContentOrNudity value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -410,7 +410,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid horrorOrFearThemes value '\(v)'"
+                            text: "Error: Invalid horrorOrFearThemes value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -429,7 +429,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid matureOrSuggestiveThemes value '\(v)'"
+                            text: "Error: Invalid matureOrSuggestiveThemes value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -448,7 +448,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid violenceCartoonOrFantasy value '\(v)'"
+                            text: "Error: Invalid violenceCartoonOrFantasy value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -469,7 +469,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid violenceRealisticProlongedGraphicOrSadistic value '\(v)'"
+                            text: "Error: Invalid violenceRealisticProlongedGraphicOrSadistic value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -488,7 +488,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid violenceRealistic value '\(v)'"
+                            text: "Error: Invalid violenceRealistic value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -507,7 +507,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid ageRatingOverride value '\(v)'"
+                            text: "Error: Invalid ageRatingOverride value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -526,7 +526,7 @@ enum UpdateAgeRatingTool {
                 return .init(
                     content: [
                         .text(
-                            "Error: Invalid koreaAgeRatingOverride value '\(v)'"
+                            text: "Error: Invalid koreaAgeRatingOverride value '\(v)'", annotations: nil, _meta: nil
                         )
                     ],
                     isError: true)
@@ -538,7 +538,7 @@ enum UpdateAgeRatingTool {
             return .init(
                 content: [
                     .text(
-                        "Error: At least one content descriptor must be provided"
+                        text: "Error: At least one content descriptor must be provided", annotations: nil, _meta: nil
                     )
                 ],
                 isError: true)
@@ -553,7 +553,7 @@ enum UpdateAgeRatingTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Apply update
@@ -583,7 +583,7 @@ enum UpdateAgeRatingTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 
     // Helper to map frequency string to any of the frequency enum types

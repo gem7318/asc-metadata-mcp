@@ -34,7 +34,7 @@ enum DeletePhasedReleaseTool {
         guard let phasedReleaseId = arguments?["phasedReleaseId"]?.stringValue
         else {
             return .init(
-                content: [.text("Error: phasedReleaseId is required")],
+                content: [.text(text: "Error: phasedReleaseId is required", annotations: nil, _meta: nil)],
                 isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
@@ -50,7 +50,7 @@ enum DeletePhasedReleaseTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Delete the phased release
@@ -67,6 +67,6 @@ enum DeletePhasedReleaseTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

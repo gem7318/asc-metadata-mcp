@@ -41,11 +41,11 @@ enum CreateExperimentTreatmentTool {
     ) async throws -> CallTool.Result {
         guard let experimentId = arguments?["experimentId"]?.stringValue else {
             return .init(
-                content: [.text("Error: experimentId is required")], isError: true)
+                content: [.text(text: "Error: experimentId is required", annotations: nil, _meta: nil)], isError: true)
         }
         guard let name = arguments?["name"]?.stringValue else {
             return .init(
-                content: [.text("Error: name is required")], isError: true)
+                content: [.text(text: "Error: name is required", annotations: nil, _meta: nil)], isError: true)
         }
         let appIconName = arguments?["appIconName"]?.stringValue
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
@@ -62,7 +62,7 @@ enum CreateExperimentTreatmentTool {
                 withJSONObject: resultDict,
                 options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Create the treatment
@@ -90,6 +90,6 @@ enum CreateExperimentTreatmentTool {
         let json = try JSONSerialization.data(
             withJSONObject: resultDict, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

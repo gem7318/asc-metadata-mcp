@@ -24,7 +24,7 @@ enum GetReviewTool {
         client: AppStoreConnectClient
     ) async throws -> CallTool.Result {
         guard let reviewId = arguments?["reviewId"]?.stringValue else {
-            return .init(content: [.text("Error: reviewId is required")], isError: true)
+            return .init(content: [.text(text: "Error: reviewId is required", annotations: nil, _meta: nil)], isError: true)
         }
 
         let response = try await client.send(
@@ -76,6 +76,6 @@ enum GetReviewTool {
 
         let json = try JSONSerialization.data(
             withJSONObject: reviewDict, options: [.prettyPrinted, .sortedKeys])
-        return .init(content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+        return .init(content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }

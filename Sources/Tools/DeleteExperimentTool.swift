@@ -32,7 +32,7 @@ enum DeleteExperimentTool {
     ) async throws -> CallTool.Result {
         guard let experimentId = arguments?["experimentId"]?.stringValue else {
             return .init(
-                content: [.text("Error: experimentId is required")], isError: true)
+                content: [.text(text: "Error: experimentId is required", annotations: nil, _meta: nil)], isError: true)
         }
         let dryRun = arguments?["dryRun"]?.boolValue ?? false
 
@@ -73,7 +73,7 @@ enum DeleteExperimentTool {
             let json = try JSONSerialization.data(
                 withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
             return .init(
-                content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+                content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
         }
 
         // Delete the experiment
@@ -88,6 +88,6 @@ enum DeleteExperimentTool {
         let json = try JSONSerialization.data(
             withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
         return .init(
-            content: [.text(String(data: json, encoding: .utf8) ?? "{}")])
+            content: [.text(text: String(data: json, encoding: .utf8) ?? "{}", annotations: nil, _meta: nil)])
     }
 }
